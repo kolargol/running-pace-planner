@@ -82,7 +82,7 @@ The Running Pace Planner assists runners in planning their pacing throughout rac
             let paceSummaryText = '<div class="card-header">Pace segments (<em>length and expected pace</em>)</div><ul>';
 
             paceSections.forEach((section, index) => {
-                paceSummaryText += `<li><b>Segment ${index + 1}</b> (<em>${section.start} km to ${section.end} km</em>), <b>length</b> ${section.end - section.start} km <b>pace at</b> ${section.pace} min/km</li>`;
+                paceSummaryText += `<li><b>Segment ${index + 1}</b> (<em>${section.start} km to ${section.end} km</em>), <b>length</b> ${(section.end - section.start).toFixed(2)} km <b>pace at</b> ${section.pace.toFixed(2)} min/km</li>`;
             });
 
             document.getElementById("pace-summary").innerHTML = paceSummaryText;
@@ -119,7 +119,7 @@ function updateLiveResults() {
     let totalSectionDistance = 0;
     
     paceSections.forEach((section) => {
-        const paceString = String(section.pace);
+        const paceString = String(section.pace.toFixed(2));
         const paceParts = paceString.split('.');
         //const paceInMinutes = parseFloat(paceParts[0]) + parseFloat(paceParts[1]) / 60;
         const paceInMinutes = parseFloat(paceParts[0]) + (isNaN(parseFloat(paceParts[1])) ? 0 : parseFloat(paceParts[1]) / 60);
@@ -128,7 +128,7 @@ function updateLiveResults() {
     });
 
     const remainingDistance = totalDistance - totalSectionDistance;
-    const lastSectionPaceString = String(paceSections[paceSections.length - 1].pace);
+    const lastSectionPaceString = String(paceSections[paceSections.length - 1].pace.toFixed(2));
     const lastSectionPaceParts = lastSectionPaceString.split('.');
     //const lastSectionPaceInMinutes = parseFloat(lastSectionPaceParts[0]) + parseFloat(lastSectionPaceParts[1]) / 60;
     const lastSectionPaceInMinutes = parseFloat(lastSectionPaceParts[0]) + (isNaN(parseFloat(lastSectionPaceParts[1])) ? 0 : parseFloat(lastSectionPaceParts[1]) / 60);
